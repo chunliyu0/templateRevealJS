@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html class="theme-" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+
+<title>Video streaming on the Web</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link href="Video%20streaming%20on%20the%20Web_files/css.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="Video%20streaming%20on%20the%20Web_files/reset.css">
+<link rel="stylesheet" href="Video%20streaming%20on%20the%20Web_files/main.css">
+<link rel="stylesheet" href="Video%20streaming%20on%20the%20Web_files/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="Video%20streaming%20on%20the%20Web_files/zenburn.css">
+<link rel="stylesheet" href="Video%20streaming%20on%20the%20Web_files/presentation.css">
+</head>
+
+<body>
+
+	<div class="reveal linear">
+
+		<!-- Used to fade in a background when a specific slide state is reached -->
+		<div class="state-background"></div>
+
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section style="display: block;" class="present">
+				<h2>Video streaming on the Web</h2>
+				<br>
+				<p>
+					Introduction to Web-based video streaming, <br>and lessons
+					learned at Norwegian Research Council
+				</p>
+				<br>
+				<p>
+					Arild Nilsen<br>Anja Svartberg<br>Brynjulv Brynulvsen
+				</p>
+				<br>
+				<p>August, 2012</p>
+			</section>
+
+			<section style="display: block;" class="future">
+				<h2>Outline</h2>
+				<ul>
+					<li>History</li>
+					<li>Video streaming technologies</li>
+					<li>Experiences from project</li>
+				</ul>
+			</section>
+
+			<section style="display: block;" class="future">
+				<h2>Outdated technologies</h2>
+
+				<div id="outdated_technologies">
+					<div>
+						<img src="Video%20streaming%20on%20the%20Web_files/realmedia_logo.png">
+						<p>RealMedia</p>
+					</div>
+					<div>
+						<img src="Video%20streaming%20on%20the%20Web_files/quicktime_logo.png"> 
+						<p>QuickTime</p>
+					</div>
+					<div>
+						<img src="Video%20streaming%20on%20the%20Web_files/windowsmedia_logo.jpg">
+						<p>Windows Media</p>
+					</div>
+				</div>
+				<div class="fragment" id="outdated_technologies_formats">
+					<p>(.rm)</p>
+					<p>(.mov/.qt)</p>
+					<p>(.wmv)</p>				
+				</div>
+				
+				<pre class="fragment"><code class="xml">
+	<span class="tag">&lt;<span class="title">object</span>&gt;</span>
+	    <span class="comment">&lt;!-- censored due to verbosity --&gt;</span>
+	    <span class="tag">&lt;<span class="title">embed</span>&gt;</span>
+	    ...
+	    <span class="tag">&lt;/<span class="title">embed</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">object</span>&gt;</span>
+				</code></pre>
+			</section>
+
+			<section style="display: block;" class="future">
+				<h2>The road towards HTML5 video</h2>
+				<ul>
+					<!-- <li class="fragment">2002: Flash Player 6 introduces video</li> -->
+					<li class="fragment">2005: Discussion about &lt;video&gt; starts</li>
+					<li class="fragment">2007: Opera supports &lt;video&gt;</li>
+					<li class="fragment">2010: YouTube and Vimeo support HTML5 video</li>
+				</ul>
+			</section>
+			
+			<section style="display: none;" class="future">
+				<h2>Why did Flash conquer the market?</h2>
+				<ul>
+					<li class="fragment">Flash is more than just video</li>
+					<li class="fragment">Tools and codecs</li>
+					<li class="fragment">2005: Google videos and Youtube launched using Flash</li>
+				</ul>
+			</section>
+
+			<!--  HTML5 video  -->
+
+			<section style="display: none;" class="stack future">
+				<section id="keyslide">
+					<h2>HTML5 video</h2>
+				</section>
+
+				<section>
+					<h2>Cross browser &lt;video&gt; element</h2>
+					<video src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm"></video>
+					<pre><code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.webm"</span> &gt;</span><span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>@controls and &lt;source&gt;</h2>
+					<video controls="controls">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+					</video>
+					<pre>						<code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">controls</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.mp4"</span> <span class="attribute">type</span>=<span class="value">"video/mp4"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.webm"</span> <span class="attribute">type</span>=<span class="value">"video/webm"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.ogg"</span> <span class="attribute">type</span>=<span class="value">"video/ogg"</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+					</code>
+					</pre>
+				</section>
+
+				<section>
+					<h2>@poster and @width</h2>
+					<video controls="controls" poster="img/HelloWorld.jpg" width="400">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+					
+					</video>
+					<pre>						<code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">controls</span> <span class="attribute">poster</span>=<span class="value">"HelloWorld.jpg"</span> <span class="attribute">width</span>=<span class="value">"400"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.mp4"</span> <span class="attribute">type</span>=<span class="value">"video/mp4"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.webm"</span> <span class="attribute">type</span>=<span class="value">"video/webm"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.ogg"</span> <span class="attribute">type</span>=<span class="value">"video/ogg"</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+					</code>
+					</pre>
+					<aside class="notes">
+						* Only width set -&gt; auto scales poster and video independently 
+						* Both width and height set -&gt; poster and video same size 
+						* Width and height should be set to match video resolution, and ensure a consistent visual size of the video box
+					</aside>
+				</section>
+				<section>
+					<h2>@preload and video scaling</h2>
+					<video controls="controls" preload="none">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+					
+					</video>
+					<pre>						<code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">controls</span> <span class="attribute">preload</span>=<span class="value">"none"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.mp4"</span> <span class="attribute">type</span>=<span class="value">"video/mp4"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.webm"</span> <span class="attribute">type</span>=<span class="value">"video/webm"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.ogg"</span> <span class="attribute">type</span>=<span class="value">"video/ogg"</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+					</code>
+					</pre>
+					<aside class="notes">When can this happen? * preload="none"
+						makes sens on a (mobile) site with many videos. * The prlead
+						request fails for some reason</aside>
+				</section>
+			</section>
+
+			<section style="display: none;" class="stack future">
+				<section id="keyslide">
+					<h2>HTML5 video + CSS3</h2>
+				</section>
+	
+				<section id="css_example_1">
+					<h2>Box model and video</h2>
+					<video controls="controls">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+						<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+					</video>
+
+					<pre><code class="xml">
+	<span class="tag">&lt;<span class="title">video</span>&gt;</span>...<span class="tag">&lt;/<span class="title">video</span>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</code></pre>	
+					<pre><code class="css">
+	<span class="tag">video</span> <span class="rules">{
+	    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">500</span>px</span>;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="rule"><span class="attribute">padding</span>:<span class="value">&nbsp;<span class="number">15</span>px</span>;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="rule"><span class="attribute">border</span>:<span class="value">&nbsp;<span class="number">5</span>px solid black</span>;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="rule"><span class="attribute">border-radius</span>:<span class="value">&nbsp;<span class="number">15</span>px</span>;</span> <span class="comment">/* rounded corners */</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="rule"><span class="attribute">box-shadow</span>:<span class="value">&nbsp;<span class="number">10</span>px <span class="number">10</span>px <span class="number">5</span>px gray</span>;</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span>;</span>
+	<span class="rule">}</span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</code></pre>
+					<aside class="notes">
+						*Syntax box-shadow: horizontal | vertical | blur
+					</aside>
+	
+				</section>
+	
+				<section id="css_example_2">
+					<h2>Positioning and video</h2>
+					<div id="content">
+						<video controls="controls">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+						
+						</video>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+							reprehenderit in voluptate velit esse cillum dolore eu fugiat
+							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+							sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+							reprehenderit in voluptate velit esse cillum dolore eu fugiat
+							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+							sunt in culpa qui officia deserunt mollit anim id est laborum
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+							eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</div>
+					<pre><code class="xml">
+	<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">video</span>&gt;</span>...<span class="tag">&lt;/<span class="title">video</span>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="tag">&lt;<span class="title">p</span>&gt;</span>...<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">p</span>&gt;</span>...<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+					</code></pre>
+					<pre><code class="css">
+	<span class="tag">video</span> <span class="rules">{
+	    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">40</span>%</span>;</span>
+	    <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span>;</span>
+	    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">5</span>px solid black</span>;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<span class="rule">}</span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</code></pre>
+				</section>
+				
+				<section id="css_example_3">
+					<h2>Absolute positioning and opacity</h2>
+					<div>
+						<video controls="controls">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+							<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">						
+						</video>
+						<img src="Video%20streaming%20on%20the%20Web_files/lyngr.jpg" width="500px">
+					</div>
+					<pre><code class="xml">
+	<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">video</span>&gt;</span>...<span class="tag">&lt;/<span class="title">video</span>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    <span class="tag">&lt;<span class="title">img</span>&gt;</span>
+	<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+					</code></pre>
+					<pre><code class="css">
+	<span class="tag">video</span> <span class="rules">{
+	    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">25</span>%</span>;</span>
+	    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span>;</span>
+	    <span class="rule"><span class="attribute">padding</span>:<span class="value"> <span class="number">50</span>px</span>;</span>	
+	    <span class="rule"><span class="attribute">opacity</span>:<span class="value"> <span class="number">0.5</span></span>;</span>					
+	<span class="rule">}</span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</code></pre>
+	
+				</section>
+			</section>
+
+			<section style="display: none;" class="stack future">
+				<section id="keyslide">
+					<h2>HTML5 video + JavaScript</h2>
+				</section>
+			</section>			
+
+			<section id="video_player_example" style="display: none;" class="future">
+				<video id="videoPlayer" controls="controls" width="500">
+					<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.mp4" type="video/mp4">
+					<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.webm" type="video/webm">
+					<source src="Video%20streaming%20on%20the%20Web_files/HelloWorld.ogg" type="video/ogg">			
+				</video>
+				<pre><code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">controls</span> <span class="attribute">id</span>=<span class="value">"videoPlayer"</span>&gt;</span>
+	    ...
+	<span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+				</code></pre>
+				<pre><code class="javascript">
+	<span class="keyword">var</span> v = document.getElementById(<span class="string">'videoPlayer'</span>);
+	v.volume = <span class="number">0.5</span>;
+	v.currentTime = v.duration - <span class="number">3</span>;
+	v.play();
+	v.addEventListener(<span class="string">'ended'</span>, <span class="function"><span class="keyword">function</span> <span class="title">videoEndedHandler</span><span class="params">(e)</span> {</span>
+	    v.autoplay = <span class="literal">true</span>;
+	    v.src = <span class="string">'HelloWorld2.webm'</span>;
+	});
+				</code></pre>
+			
+				<div class="fragment"></div>
+				<aside class="notes"></aside>
+			</section>
+
+			<section style="display: none;" class="stack future">
+				<section id="keyslide">
+					<h2>HTML5 video + headache(s)</h2>
+				</section>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h3>Current codec support</h3>
+				<a href="http://en.wikipedia.org/wiki/HTML5_video#Browser_support">
+					<img src="Video%20streaming%20on%20the%20Web_files/html5_video_codec_support.png">
+				</a>
+				<p style="font-size: 30px;">retrieved Aug. 28, 2012 </p>
+				<aside class="notes">
+					* Clarify "codec" vs "container"
+					* Ogg Theroa out of the battle: Lacks quality and hardware acceleration
+					* Safari and IE supports h.264, but not webm
+					* Firefox and Opera supports webm, but not h.264
+					* Mention that h.264 has royalties associated with it. Hence, no support from Firefox and Opara
+				</aside>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>h.264 seems to win the codec-war</h2>
+				<br>
+				<p class="fragment">h.264 ubiquitous on mobile devices</p>
+				<br>
+				<div class="fragment">
+					<blockquote width="700" cite="http://blog.chromium.org/2011/01/html-video-codec-support-in-chrome.html">
+						Mozilla execs capitulate in H.264 Web-video war
+					</blockquote>
+					<p>CNET News, March 2012</p>
+				</div>
+				<br>
+				<div class="fragment">
+					<blockquote width="700" cite="http://blog.chromium.org/2011/01/html-video-codec-support-in-chrome.html">
+						Though H.264 plays an important role in video, as our goal is to enable open innovation, <b>support for the codec will be removed</b> and our resources directed towards completely open codec technologies.
+					</blockquote>
+					<p>The Chromium Blog, January 2011</p>
+				</div>
+			</section>
+			
+			<section style="display: none;" class="future">
+				<h2>Adaptive streaming</h2>
+				<br>
+				<p class="fragment">Not supported in HTML5 video</p>	
+				<br>
+				<p class="fragment">Dynamically adapt video stream to ensure a good user experience</p>
+				<br>
+				<img class="fragment" src="Video%20streaming%20on%20the%20Web_files/adaptive_streaming.png" width="1100px">
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>HTTP Live Streaming</h2>
+				<br>
+				<p class="fragment">HTTP-based adaptive streaming by Apple</p>
+				<br>
+				<div class="fragment">
+					<a href="http://en.wikipedia.org/wiki/HTTP_Live_Streaming">
+						<img src="Video%20streaming%20on%20the%20Web_files/hls_support.png">
+					</a>
+				</div>
+				<br>
+				<br>
+				<p class="fragment"> Early stages of Internet Engineering Task Force (IETF) standardization</p>
+				<br>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>How to use HTTP Live Streaming?</h2>
+				<br>
+				<pre class="fragment"><code class="xml">
+	<span class="tag">&lt;<span class="title">video</span> <span class="attribute">controls</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.m3u8"</span> <span class="attribute">type</span>=<span class="value">"video/mp4"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.mp4"</span> <span class="attribute">type</span>=<span class="value">"video/mp4"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.webm"</span> <span class="attribute">type</span>=<span class="value">"video/webm"</span>&gt;</span>
+	    <span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"HelloWorld.ogg"</span> <span class="attribute">type</span>=<span class="value">"video/ogg"</span>&gt;</span>
+	<span class="tag">&lt;/<span class="title">video</span>&gt;</span>
+				</code></pre>
+				<br>
+				<pre class="fragment"><code class="ruby" contenteditable="">
+	<span class="comment">#EXTM3U</span>
+	<span class="comment">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1280000</span>
+	<span class="identifier">http</span><span class="symbol">:</span>/<span class="regexp">/example.com/low</span>.<span class="identifier">m3u8</span>
+	<span class="comment">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2560000</span>
+	<span class="identifier">http</span><span class="symbol">:</span>/<span class="regexp">/example.com/mid</span>.<span class="identifier">m3u8</span>
+	<span class="comment">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=7680000</span>
+	<span class="identifier">http</span><span class="symbol">:</span>/<span class="regexp">/example.com/hi</span>.<span class="identifier">m3u8</span>
+				</code></pre>
+			</section>
+
+			<section style="display: none;" class="future">
+				<img style="margin: 0;" src="Video%20streaming%20on%20the%20Web_files/flash_player_logo.jpg">
+				<p style="font-size: 200px; padding-top: 100px;">?</p>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>Is Flash dying? – Mobile Platforms</h2>
+				<ul>
+					<li class="fragment">Not supported on Apple mobile devices</li>
+					<li class="fragment">Essentially dead on Android</li>
+					<li class="fragment"><q cite="http://www.guardian.co.uk/technology/2011/nov/09/adobe-flash-mobile-dead">
+							Adobe kills mobile Flash, giving Steve Jobs the last laugh </q>
+						<p>The Guardian, 2011</p></li>
+				</ul>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>Is Flash dying? – Desktop</h2>
+				<ul>
+					<li class="fragment">Flash player 11.2 -&gt; last version for Linux</li>
+					<li class="fragment">Not pre-installed on several Apple products</li>
+					<li class="fragment">Windows 8?</li>
+				</ul>
+			</section>
+
+			<section style="display: none;" class="future">
+				<h2>What does Adobe say?</h2>
+				<div class="fragment">
+					<p>
+						<q cite="http://techcrunch.com/2010/05/19/adobe-html5/"> <i>HTML5
+								is great. It’s a great move forward for video on the web</i>
+						</q>
+					</p><p>Kevin Lynch, Adobe CTO</p>
+					<p></p>
+				</div>
+				<br>
+				<div class="fragment">
+					<p>Adobe's roadmap for Flash:</p>
+					<p>
+						<q cite="http://wwwimages.adobe.com/www.adobe.com/content/dam/Adobe/en/devnet/flashplatform/whitepapers/flash-runtimes-roadmap.pdf">
+							Looking forward, Adobe believes that Flash is particularly suited
+							for addressing the <b>gaming</b> and <b>premium video</b>
+							markets, and will focus its development efforts in those areas.
+						</q> <br>
+					</p>
+				</div>
+				<p class="fragment">
+					&amp; <br> <q cite="http://wwwimages.adobe.com/www.adobe.com/content/dam/Adobe/en/devnet/flashplatform/whitepapers/flash-runtimes-roadmap.pdf">
+						(...) including 11.2 and the subsequent 2012 release, we are also
+						modernizing the Flash runtime’s code base in order to ensure that
+						the Flash runtimes <b>meet the needs of developers over the
+							next five to 10 years.</b>
+					</q>
+				</p><p>
+					</p><aside class="notes">Why embrace HTML5? * Security and bug
+						fixes for cross-platform environment is expensive * Profit by
+						selling tools for HTML5 development</aside>
+			</section>
+
+			<section id="keyslide" style="display: none;" class="future">
+				<h2>
+					Experiences and lessons learned at<br>Norwegian Research Council
+				</h2>
+			</section>
+
+			<section style="display: none;" class="stack future">
+				<section>
+					<h3>Video Archive at Norwegian Research Council</h3>
+					<a href="http://www.forskningsradet.no/no/Videoarkiv/1247126513419">
+						<img src="Video%20streaming%20on%20the%20Web_files/video_archive_desktop.png" height="700px">
+					</a>
+				</section>
+
+				<section>
+					<h3>Mobile version</h3>
+                                        <a href="http://www.forskningsradet.no/servlet/Satellite?pagename=ForskningsradetNorsk%2FMobileSectionVideoArchive">
+                                                <img src="Video%20streaming%20on%20the%20Web_files/video_archive_mobile.png" height="700px">
+                                        </a>
+
+				</section>
+			</section>
+
+			<section id="available_technologies" style="display: none;" class="future">
+				<h2>Available technologies</h2>
+				<p>Flash</p>
+				<p>HTML5 video</p>
+				<p>HTTP Live Streaming</p>
+				<p>RTSP</p>
+				<p>Microsoft Smooth Streaming</p>
+				<div class="fragment" id="tech">
+				</div>
+			</section>
+
+			<section style="display: none;" class="future">
+			<h2>Serving video of different quality</h2>
+			<pre class="fragment"><code class="javascript">	
+	Nfr.VideoResolution = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	    <span class="keyword">if</span> (Nfr.Platform.isPhone()) {
+	        <span class="keyword">if</span> (screen.width * screen.height &lt; <span class="number">480</span> * <span class="number">800</span>)
+	            <span class="comment">// 400 kbps, height 320 (width resized)</span>
+	        <span class="keyword">else</span> 
+	            <span class="comment">// 1000 kbps, height 320 (width resized)</span>
+	    }
+	    <span class="keyword">else</span> <span class="keyword">if</span> (Nfr.Platform.isPad()) {
+	        <span class="keyword">if</span> (screen.width * screen.height &lt; <span class="number">1024</span> * <span class="number">768</span>)
+	            <span class="comment">// 400 kbps, height 576 (width resized)</span>
+	        <span class="keyword">else</span>
+	            <span class="comment">// 1000 kbps, height 576 (width resized)</span>
+	    }
+	    <span class="keyword">else</span>
+	        <span class="comment">// 1500 kbps, width 720p (height resized)</span>
+	};
+				</code></pre>			
+			</section>
+
+			<section id="keyslide" style="display: none;" class="future">
+					<h2>Backward compatibility adds complexity</h2>
+			</section>
+
+			<section id="customer_opinions" style="display: block;" class="future">
+				<h2>What does the customer say?</h2>
+				<ul>
+					<li class="fragment">It works on all relevant platforms</li>
+					<li class="fragment">It streams smoothly on mobile devices, and over mobile connections</li>
+					<li class="fragment">Loading time over mobile connection</li>
+					<li class="fragment">				
+						<q>
+							All kommunikasjon med den tyske leverandøren har gått på epost og dette har <b>stort sett gått greit</b>.							
+						</q>
+						<p>
+						Bjørn Holta, seniorrådgiver/webredaktør forskningsradet.no
+						</p>
+					</li>				
+				</ul>
+			</section>
+
+			<section id="resources" style="display: block;" class="future">
+				<h2>Where to learn more?</h2>
+				<div>
+					<a class="image" href="http://www.amazon.co.uk/Definitive-Guide-HTML5-Experts-Development/dp/1430230908/ref=sr_1_3?ie=UTF8&amp;qid=1345312699&amp;sr=8-3" target="_blank"> <img src="Video%20streaming%20on%20the%20Web_files/html5_video_book.jpg" width="320" height="412">
+					</a>
+					<div>
+						<a class="image" href="http://www.linkedin.com/in/adaptivestreaming" target="_blank">
+							<img src="Video%20streaming%20on%20the%20Web_files/robert_reinhardt.jpg" width="100">
+						</a>
+						<p>Robert Reinhardt</p>
+						<p>
+						
+						</p><div id="links">
+							<a href="http://transitioning.to/2012/01/the-world-of-pain-that-is-html5-video/" class="roll"><span data-title="The World of Pain that is HTML5 Video">The World of Pain that is HTML5 Video</span></a>
+							<p>January, 2012</p>
+							<a href="http://transitioning.to/2012/03/solving-html5-video-problems-with-adaptive-streaming/" class="roll"><span data-title="Solving HTML5 Video Problems with Adaptive Streaming">Solving HTML5 Video Problems with Adaptive Streaming</span></a>
+							<p>March, 2012</p>
+						</div>
+					</div>
+				</div>
+				<div id="footer">
+					<a href="http://www.0xdeadbeef.com/weblog/2010/01/html5-video-and-h-264-what-history-tells-us-and-why-were-standing-with-the-web/" class="roll"><span data-title="HTML5 video and H.264 – what history tells us and why we’re standing with the web">HTML5 video and H.264 – what history tells us and why we’re standing with the web</span></a>
+					<p> January, 2010</p>
+				</div>
+
+			</section>
+			
+			<section style="display: block;" class="future">
+				<p style="font-size: 300px;">?</p>
+				<div style="padding-top: 200px;">
+				<p>Presentation available at:</p>
+				<a href="http://arild.github.io/fagdag_aug2012/arild.github.com/fagdag_aug2012/index.html" class="roll"><span data-title="
+					arild.github.com/fagdag_aug2012
+				">
+					arild.github.com/fagdag_aug2012
+				</span></a>
+				</div>
+
+			</section>
+
+		</div>
+
+
+
+		<!-- The navigational controls UI -->
+		<aside class="controls" style="display: block;">
+			<a class="left" href="#">◄</a> <a class="right enabled" href="#">►</a>
+			<a class="up" href="#">▲</a> <a class="down" href="#">▼</a>
+		</aside>
+
+		<!-- Presentation progress bar -->
+		<div class="progress" style="display: block;">
+			<span style="width: 0px;"></span>
+		</div>
+
+	</div>
+
+	<script src="Video%20streaming%20on%20the%20Web_files/head.js"></script>
+	<script src="Video%20streaming%20on%20the%20Web_files/jquery.js" type="text/javascript"></script>
+	
+	<script>
+
+		// Load reveal.js as well as a classList polyfill if needed
+		head.js(!document.body.classList ? 'lib/js/classList.js' : null).js(
+				'js/reveal.js', function() {
+
+					// Parse the query string into a key/value object
+					var query = {};
+					location.search.replace(/[A-Z0-9]+?=(\w*)/gi, function(a) {
+						query[a.split('=').shift()] = a.split('=').pop();
+					});
+
+					// Fires when a slide with data-state=customevent is activated
+					Reveal.addEventListener('fragmentshown', function() {
+					    var slide = Reveal.getCurrentSlide();
+						if (slide.id == 'available_technologies') {
+							var elems = $('p', slide);
+							$.each($('p', slide), function(index) {
+								console.log(index)
+								if (index == 0 || index == 2)
+									$(this).css('font-size', '60px');
+								else
+									$(this).css('font-size', '25px');
+							});
+						}
+						else if (slide.id == 'video_player_example') {
+							var v = document.getElementById('videoPlayer');
+							v.volume = 0.5;
+							v.currentTime = v.duration - 3;
+							v.play();
+							v.addEventListener('ended', function videoEndedHandler(e) {
+								v.autoplay = true;
+								v.src = 'HelloWorld2.webm';
+							});
+						}
+					});
+
+					$(document).keydown(function(e){
+					    var slide = Reveal.getCurrentSlide();
+					    if ((e.keyCode == 32 || e.keyCode == 39) && slide.id == 'video_player_example') { 
+					    	document.getElementById('videoPlayer').pause();
+					    }
+					});
+					
+					// Fires each time a new slide is activated
+					Reveal.addEventListener('slidechanged', function(event) {
+						// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+					});
+
+					// Full list of configuration options available here:
+					// https://github.com/hakimel/reveal.js#configuration
+					Reveal.initialize({
+						controls : true,
+						progress : true,
+						history : true,
+
+						theme : query.theme || '', // default/neon/beige
+						transition : query.transition || 'linear' // default/cube/page/concave/linear(2d)
+					});
+
+				});
+
+		// Load highlight.js for syntax highlighting of code samples
+		head.js('lib/js/highlight.js', function() {
+			hljs.initHighlightingOnLoad();
+		});
+
+		// If we're runnning the notes server we need to include some additional JS
+		// TODO Is there a better way to determine if we're running the notes server?
+		if (window.location.host === 'localhost:1947') {
+			head.js('socket.io/socket.io.js', 'plugin/speakernotes/client.js');
+		}
+	</script><script type="text/javascript" src="Video%20streaming%20on%20the%20Web_files/reveal.js"></script><script type="text/javascript" src="Video%20streaming%20on%20the%20Web_files/highlight.js"></script>
+
+
+
+</body></html>
